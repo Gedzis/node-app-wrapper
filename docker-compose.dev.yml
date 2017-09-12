@@ -1,0 +1,18 @@
+version: '2'
+services:
+    db:
+        ports:
+            - "9432:5432"
+    backend:
+        image: node:5.10
+        working_dir: /backend
+        command: npm run develop
+        volumes:
+            - ./backend:/backend
+            - ./files:/files
+        ports:
+            - "3000:3000"
+        environment:
+            NODE_ENV: ${NODE_ENV}
+        depends_on:
+            - db
